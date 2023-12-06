@@ -1,5 +1,5 @@
 [package]
-name = "day-01"
+name = "day-04"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,9 +7,8 @@ edition = "2021"
 
 [dependencies]
 
-
 [[bin]]
-name = "part01"
+name  = "part01"
 
 [[bin]]
 name = "part02"
