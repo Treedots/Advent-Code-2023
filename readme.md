@@ -1,3 +1,3 @@
 Advent Code 2023
 Just Bunch of messily written code.
-My attempt on the Advent Code and also to improve on them.
+My 1st attempt on the Advent Code and also to improve using rust.
