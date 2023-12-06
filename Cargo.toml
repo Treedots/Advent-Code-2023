@@ -11,3 +11,5 @@ resolver = "2"
 members = ["day-*"]
 
 [workspace.dependencies]
+rayon = "1.8.0"
+indicatif = "0.17.7"
