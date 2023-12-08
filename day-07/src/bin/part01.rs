@@ -10,7 +10,7 @@ fn logic(data:&str)->i32{
     let mut collection: Vec<Vec<(&str,String,i32)>> = vec![Vec::new();7];
     let mut camel_cards: Vec<(&str,String,i32)> = Vec::new();
     for i in data.lines(){
-        let (a,header,body):(&str,String,i32) =i.split_once(" ").map(|(a,b)|(a,a.trim().replace("A", "E").replace("K", "D").replace("Q", "C").replace("J", "B").replace("T", "A"),b.trim().parse::<i32>().unwrap())).unwrap();
+        let (a,header,body):(&str,String,i32) =i.split_once(" ").map(|(a,b)|(a,a.trim().replace("A", "E").replace("K", "D").replace("Q", "C").replace("J", "0").replace("T", "A"),b.trim().parse::<i32>().unwrap())).unwrap();
         camel_cards.push((a,header,body));
     }
     //
