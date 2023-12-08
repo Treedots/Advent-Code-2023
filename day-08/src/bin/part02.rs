@@ -47,8 +47,32 @@ fn logic(data: &str) -> i64 {
         new_hash.insert(i, t);
     }
     let t:Vec<i64> = points.iter().map(|f| loop_get_z(f, new_hash.clone())).collect();
-    let result = t.iter().reduce(|a,b| &a.lcm(b)).unwrap();
+    let result = t.iter()(|a,b|lcm(a, b)).unwrap();
     *result
+}
+
+fn lcm(first: i64, second: i64) -> i64{
+    first * second / gcd(first, second)
+}
+
+fn gcd(first: i64, second: i64) -> {
+    let mut max = first;
+    let mut min = second;
+    if min > max {
+        let val = max;
+        max = min;
+        min = val;
+    }
+
+    loop {
+        let res = max % min;
+        if res == 0 {
+            return min;
+        }
+
+        max = min;
+        min = res;
+    }
 }
 fn loop_get_z(start:&str,map:HashMap<&str,String>)->i64{
     let mut current = start;
