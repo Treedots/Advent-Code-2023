@@ -1,6 +1,6 @@
 use console::Term;
-use num::Integer;
 use core::panic;
+use num::Integer;
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 use std::collections::HashMap;
 fn main() {
@@ -46,52 +46,48 @@ fn logic(data: &str) -> i64 {
         let t = loop_process(i, instruction, has.clone());
         new_hash.insert(i, t);
     }
-    let t:Vec<i64> = points.iter().map(|f| loop_get_z(f, new_hash.clone())).collect();
-    let result = t.iter()(|a,b|lcm(a, b)).unwrap();
-    *result
+
+    println!("{new_hash:?}");
+    let t: Vec<i64> = start_points
+        .iter()
+        .map(|f| loop_get_z(f, new_hash.clone()))
+        .collect();
+    let (_, temp) = t.split_at(0);
+    let t = lcma(temp);
+    let result =  t * instruction.len() as i64;
+    result
 }
 
-fn lcm(first: i64, second: i64) -> i64{
-    first * second / gcd(first, second)
-}
-
-fn gcd(first: i64, second: i64) -> {
-    let mut max = first;
-    let mut min = second;
-    if min > max {
-        let val = max;
-        max = min;
-        min = val;
+fn lcma(nums: &[i64]) -> i64 {
+    if nums.len() == 1 {
+        return nums[0];
     }
-
-    loop {
-        let res = max % min;
-        if res == 0 {
-            return min;
-        }
-
-        max = min;
-        min = res;
-    }
+    let a = nums[0];
+    let b = lcma(&nums[1..]);
+    a * b / gcd_of_two_numbers(a, b)
 }
-fn loop_get_z(start:&str,map:HashMap<&str,String>)->i64{
+
+fn gcd_of_two_numbers(a: i64, b: i64) -> i64 {
+    if b == 0 {
+        return a;
+    }
+    gcd_of_two_numbers(b, a % b)
+}
+
+fn loop_get_z(start: &str, map: HashMap<&str, String>) -> i64 {
     let mut current = start;
     let mut count = 0;
-    loop{
+    loop {
         count += 1;
-        let temp =  map.get(current).unwrap();
-        if temp.ends_with("Z"){
-            break
-        }
-        else{
+        let temp = map.get(current).unwrap();
+        if temp.ends_with("Z") {
+            break;
+        } else {
             current = temp;
         }
     }
     count
-
 }
-
-
 
 fn loop_process(start_point: &str, instruction: &str, map: HashMap<&str, (&str, &str)>) -> String {
     let mut current = start_point;
