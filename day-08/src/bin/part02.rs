@@ -1,4 +1,5 @@
 use console::Term;
+use num::Integer;
 use core::panic;
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 use std::collections::HashMap;
@@ -45,31 +46,29 @@ fn logic(data: &str) -> i64 {
         let t = loop_process(i, instruction, has.clone());
         new_hash.insert(i, t);
     }
-    let mut total = 1;
-    let mut no_of_z = 0;
-    println!("{total}");
-    loop {
-        let mut temp_hash: HashMap<&str, String> = HashMap::new();
-        for i in points.iter() {
-            let mut temp = i;
-            for _ in 0..2 {
-                let t = new_hash.get(temp).unwrap();
-                if i.ends_with("A") && t.ends_with("z") {
-                    no_of_z += 1;
-                }
-                temp_hash.insert(i, t.to_string());
-            }
+    let t:Vec<i64> = points.iter().map(|f| loop_get_z(f, new_hash.clone())).collect();
+    let result = t.iter().reduce(|a,b| &a.lcm(b)).unwrap();
+    *result
+}
+fn loop_get_z(start:&str,map:HashMap<&str,String>)->i64{
+    let mut current = start;
+    let mut count = 0;
+    loop{
+        count += 1;
+        let temp =  map.get(current).unwrap();
+        if temp.ends_with("Z"){
+            break
         }
-        total += 1;
-        if no_of_z == start_points.len() {
-            break;
-        } else {
-            new_hash = temp_hash.clone();
-            temp_hash.clear();
+        else{
+            current = temp;
         }
     }
-    total as i64
+    count
+
 }
+
+
+
 fn loop_process(start_point: &str, instruction: &str, map: HashMap<&str, (&str, &str)>) -> String {
     let mut current = start_point;
     for v in instruction.chars() {

@@ -14,3 +14,4 @@ members = ["day-*"]
 rayon = "1.8.0"
 indicatif = "0.17.7"
 console = "0.15.7"
+num = "0.4.1"

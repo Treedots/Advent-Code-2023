@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 console = {workspace =true}
 rayon = {workspace=true}
+num = {workspace=true}
