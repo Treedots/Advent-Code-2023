@@ -60,6 +60,7 @@ fn logic(data: &str) -> i64 {
     let mut position_of_galaxy: Vec<(i64, i64)> = Vec::new();
     let mut offset_x = 0;
     let mut offset_y = 0;
+    //Change the offset to 1 to get part 1 ans
     const OFFSET: i64 = 1000000-1;
     for i in 0..no_of_rows {
         for j in 0..no_of_cols {
